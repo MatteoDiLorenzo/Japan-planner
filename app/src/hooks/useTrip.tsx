@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import type { Attraction, BudgetItem, DayPlan, DayActivity, Hotel } from '@/types';
-import { attractions as allAttractions } from '@/data/attractions';
+import { attractions as allAttractions, sampleHotels } from '@/data/attractions';
 
 interface TripContextType {
   selectedAttractions: Attraction[];
@@ -25,6 +25,8 @@ interface TripContextType {
   getAttractionDistance: (attraction1Id: string, attraction2Id: string) => number;
   getEstimatedTravelTime: (attraction1Id: string, attraction2Id: string) => number;
   getDistanceToHotel: (attractionId: string, hotelId: string) => number;
+  reorderActivities: (dayId: string, oldIndex: number, newIndex: number) => void;
+  setTotalBudget: (amount: number) => void;
 }
 
 const TripContext = createContext<TripContextType | undefined>(undefined);
@@ -56,7 +58,88 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const [selectedHotels, setSelectedHotels] = useState<Hotel[]>([]);
   const [dayPlans, setDayPlans] = useState<DayPlan[]>([]);
   const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
-  const [totalBudget] = useState<number>(200000); // Default 200,000 JPY (~€1300)
+  const [totalBudget, setTotalBudget] = useState<number>(200000); // Default 200,000 JPY (~€1300)
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load trip data from URL on mount
+  useEffect(() => {
+    if (isLoaded) return;
+    
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tripParam = urlParams.get('trip');
+      
+      if (tripParam) {
+        // Decode with Unicode support
+        const decoded = decodeURIComponent(atob(tripParam).split('').map((c) => 
+          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        ).join(''));
+        const tripData = JSON.parse(decoded);
+        
+        // Load attractions
+        if (tripData.attractions && Array.isArray(tripData.attractions)) {
+          const loadedAttractions = tripData.attractions
+            .map((id: string) => allAttractions.find(a => a.id === id))
+            .filter(Boolean) as Attraction[];
+          setSelectedAttractions(loadedAttractions);
+          
+          // Add to budget
+          loadedAttractions.forEach((attr: Attraction) => {
+            if (attr.price > 0) {
+              const newItem: BudgetItem = {
+                id: `budget-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                category: 'attraction',
+                description: `${attr.name} (${attr.nameJp})`,
+                amount: attr.price,
+              };
+              setBudgetItems(prev => [...prev, newItem]);
+            }
+          });
+        }
+        
+        // Load hotels
+        if (tripData.hotels && Array.isArray(tripData.hotels)) {
+          const loadedHotels = tripData.hotels
+            .map((id: string) => sampleHotels.find(h => h.id === id))
+            .filter(Boolean) as Hotel[];
+          setSelectedHotels(loadedHotels);
+          
+          // Add to budget
+          loadedHotels.forEach((hotel: Hotel) => {
+            const newItem: BudgetItem = {
+              id: `budget-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+              category: 'accommodation',
+              description: `${hotel.name} - 1 notte`,
+              amount: hotel.price,
+            };
+            setBudgetItems(prev => [...prev, newItem]);
+          });
+        }
+        
+        // Load days
+        if (tripData.days && Array.isArray(tripData.days)) {
+          const loadedDays: DayPlan[] = tripData.days.map((day: any, index: number) => ({
+            id: `day-${Date.now()}-${index}`,
+            activities: (day.activities || []).map((activity: any, actIndex: number) => ({
+              id: `activity-${Date.now()}-${actIndex}`,
+              attractionId: activity.attractionId,
+              startTime: activity.startTime,
+              endTime: activity.endTime,
+              order: actIndex,
+            })),
+          }));
+          setDayPlans(loadedDays);
+        }
+        
+        // Clear URL parameter
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    } catch (error) {
+      console.error('Error loading trip from URL:', error);
+    }
+    
+    setIsLoaded(true);
+  }, [isLoaded]);
 
   const addAttraction = useCallback((attraction: Attraction) => {
     setSelectedAttractions(prev => {
@@ -161,6 +244,19 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     }));
   }, []);
 
+  const reorderActivities = useCallback((dayId: string, oldIndex: number, newIndex: number) => {
+    setDayPlans(prev => prev.map(day => {
+      if (day.id !== dayId) return day;
+      const activities = [...day.activities];
+      const [movedActivity] = activities.splice(oldIndex, 1);
+      activities.splice(newIndex, 0, movedActivity);
+      return {
+        ...day,
+        activities: activities.map((a, i) => ({ ...a, order: i })),
+      };
+    }));
+  }, []);
+
   const addBudgetItem = useCallback((item: Omit<BudgetItem, 'id'>) => {
     const newItem: BudgetItem = {
       ...item,
@@ -223,6 +319,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     getAttractionDistance,
     getEstimatedTravelTime,
     getDistanceToHotel,
+    reorderActivities,
+    setTotalBudget,
   }), [
     selectedAttractions,
     selectedHotels,
@@ -245,6 +343,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     getAttractionDistance,
     getEstimatedTravelTime,
     getDistanceToHotel,
+    reorderActivities,
   ]);
 
   return (
