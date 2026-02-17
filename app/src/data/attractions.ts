@@ -728,6 +728,942 @@ export const attractions: Attraction[] = [
     description: 'Quartiere storico con case tradizionali e negozi.',
     image: 'https://content.fun-japan.jp/renewal-prod/cms/articles/content/091cad93896c0e10471d3dbd2a73378047144d9d.jpg'
   },
+
+  // ==================== NUOVE ATTRAZIONI TOKYO ====================
+  // Musei
+  {
+    id: 'tokyo-national-museum',
+    name: 'Tokyo National Museum',
+    nameJp: '東京国立博物館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '3 ore',
+    price: 1000,
+    coordinates: [35.7188, 139.7765],
+    description: 'Il museo più antico e grande del Giappone con arte e archeologia giapponese.',
+    image: 'https://www.tripsavvy.com/thmb/5V2vfrojwmCzg8cYoTotZzHBsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tokyonationalmuseum-da510dbea7d648c190c66390eb9a651f.jpg'
+  },
+  {
+    id: 'edo-tokyo-museum',
+    name: 'Edo-Tokyo Museum',
+    nameJp: '江戸東京博物館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '2-3 ore',
+    price: 600,
+    coordinates: [35.6960, 139.7925],
+    description: 'Museo dedicato alla storia di Tokyo dall\'epoca Edo ai giorni nostri.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Edo-Tokyo_Museum.jpg'
+  },
+  {
+    id: 'national-art-center-tokyo',
+    name: 'National Art Center Tokyo',
+    nameJp: '国立新美術館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.6652, 139.7264],
+    description: 'Il più grande museo d\'arte del Giappone con mostre temporanee.',
+    image: 'https://cdn.cheapoguides.com/wp-content/uploads/sites/2/2012/06/national-art-center-tokyo-iStock-1061510744-1024x600.jpg'
+  },
+  {
+    id: 'mori-art-museum',
+    name: 'Mori Art Museum',
+    nameJp: '森美術館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '2 ore',
+    price: 1800,
+    coordinates: [35.6606, 139.7292],
+    description: 'Museo d\'arte contemporanea con vista panoramica dalla Roppongi Hills.',
+    image: 'https://www.kanpai-japan.com/sites/default/files/uploads/2021/10/mori-art-museum-tokyo-1.jpg'
+  },
+  {
+    id: 'tokyo-metropolitan-art-museum',
+    name: 'Tokyo Metropolitan Art Museum',
+    nameJp: '東京都美術館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '2 ore',
+    price: 0,
+    coordinates: [35.7172, 139.7736],
+    description: 'Museo municipale nel parco di Ueno con mostre diverse.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2019/02/Tokyo-Metropolitan-Museum-of-Art-2.jpg'
+  },
+  // Parchi e Natura
+  {
+    id: 'yoyogi-park',
+    name: 'Yoyogi Park',
+    nameJp: '代々木公園',
+    city: 'tokyo',
+    type: 'park',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [35.6717, 139.6956],
+    description: 'Ampio parco popolare per picnic e attività all\'aperto.',
+    image: 'https://www.japan-guide.com/g18/3034_002_11.jpg'
+  },
+  {
+    id: 'inokashira-park',
+    name: 'Inokashira Park',
+    nameJp: '井の頭公園',
+    city: 'tokyo',
+    type: 'park',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [35.7000, 139.5736],
+    description: 'Parco con lago, barche a remi e ciliegi in fiore a Kichijoji.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/43/98/30/sakura-season-2017.jpg?w=1200&h=1200&s=1'
+  },
+  {
+    id: 'meiji-jingu-gaien',
+    name: 'Meiji Jingu Gaien',
+    nameJp: '明治神宮外苑',
+    city: 'tokyo',
+    type: 'park',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [35.6800, 139.7200],
+    description: 'Giardino commemorativo con il famoso viale di ginkgo.',
+    image: 'https://static.gltjp.com/glt/data/directory/12000/11026/20210817_231700_ca43fc4e_w1920.webp'
+  },
+  // Quartieri
+  {
+    id: 'kichijoji',
+    name: 'Kichijoji',
+    nameJp: '吉祥寺',
+    city: 'tokyo',
+    type: 'shopping',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [35.7036, 139.5796],
+    description: 'Quartiere vivace con negozi, ristoranti e il parco Inokashira.',
+    image: 'https://travel.rakuten.com/contents/sites/contents/files/styles/max_1300x1300/public/2025-04/kichijoji_8.jpg?itok=VvxzD2Tm'
+  },
+  {
+    id: 'shimokitazawa',
+    name: 'Shimokitazawa',
+    nameJp: '下北沢',
+    city: 'tokyo',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.6614, 139.6683],
+    description: 'Quartiere bohemien con negozi vintage, teatri e caffè.',
+    image: 'https://www.gotokyo.org/en/destinations/western-tokyo/shimokitazawa/images/area033_1010_19.webp'
+  },
+  {
+    id: 'nakameguro',
+    name: 'Nakameguro',
+    nameJp: '中目黒',
+    city: 'tokyo',
+    type: 'culture',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.6415, 139.6982],
+    description: 'Quartiere alla moda lungo il fiume Meguro, famoso per i ciliegi.',
+    image: 'https://www.gotokyo.org/en/destinations/southern-tokyo/nakameguro/images/103_0016_4.jpg'
+  },
+  {
+    id: 'daikanyama',
+    name: 'Daikanyama',
+    nameJp: '代官山',
+    city: 'tokyo',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.6489, 139.7033],
+    description: 'Quartiere elegante con boutique di lusso e caffè alla moda.',
+    image: 'https://www.gotokyo.org/en/destinations/western-tokyo/daikanyama/images/area034_1005_27.jpg'
+  },
+  {
+    id: 'koenji',
+    name: 'Koenji',
+    nameJp: '高円寺',
+    city: 'tokyo',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.7055, 139.6499],
+    description: 'Quartiere alternativo con negozi vintage e vita notturna.',
+    image: 'https://i0.wp.com/donnykimball.com/wp-content/uploads/2021/07/A-Street-in-Koenji.webp?resize=800%2C534&ssl=1'
+  },
+  // Divertimenti
+  {
+    id: 'tokyo-disneyland',
+    name: 'Tokyo Disneyland',
+    nameJp: '東京ディズニーランド',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '1 giorno',
+    price: 7900,
+    coordinates: [35.6329, 139.8804],
+    description: 'Parco divertimenti Disney con castello della Bella Addormentata.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Tokyo_Disneyland_Cinderella_Castle_2023-07-02.jpg'
+  },
+  {
+    id: 'tokyo-disneysea',
+    name: 'Tokyo DisneySea',
+    nameJp: '東京ディズニーシー',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '1 giorno',
+    price: 7900,
+    coordinates: [35.6266, 139.8853],
+    description: 'Parco a tema marittimo unico al mondo con Monte Prometeo.',
+    image: 'https://www.japan-guide.com/g22/3016_04.jpg'
+  },
+  {
+    id: 'rainbow-bridge',
+    name: 'Rainbow Bridge',
+    nameJp: 'レインボーブリッジ',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '30 min',
+    price: 0,
+    coordinates: [35.6366, 139.7633],
+    description: 'Ponte sospeso illuminato che collega Odaiba a Shibaura.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Rainbow_Bridge_%28Tokyo%29_at_night_8.jpg'
+  },
+  {
+    id: 'tokyo-metropolitan-gov',
+    name: 'Tokyo Metropolitan Government Building',
+    nameJp: '東京都庁',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [35.6896, 139.6917],
+    description: 'Osservatorio gratuito al 45° piano con vista su Tokyo.',
+    image: 'https://www.japan-guide.com/g18/3011_21.jpg'
+  },
+  {
+    id: 'sunshine-city',
+    name: 'Sunshine City',
+    nameJp: 'サンシャインシティ',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [35.7290, 139.7186],
+    description: 'Complesso commerciale con acquario, planetario e osservatorio.',
+    image: 'https://res-1.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1647834380/tokyo/M_01108_001'
+  },
+  {
+    id: 'aqua-park-shinagawa',
+    name: 'Aqua Park Shinagawa',
+    nameJp: 'アクアパーク品川',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '2 ore',
+    price: 2500,
+    coordinates: [35.6274, 139.7340],
+    description: 'Acquario moderno con spettacoli di delfini e illuminazioni.',
+    image: 'https://cdn.savvytokyo.com/app/uploads/2013/06/epson.stadium3.jpg'
+  },
+  {
+    id: 'sumida-aquarium',
+    name: 'Sumida Aquarium',
+    nameJp: 'すみだ水族館',
+    city: 'tokyo',
+    type: 'entertainment',
+    duration: '1-2 ore',
+    price: 2500,
+    coordinates: [35.7155, 139.8010],
+    description: 'Acquario moderno a Tokyo Skytree Town con pinguini e meduse.',
+    image: 'https://www.gotokyo.org/en/spot/67/images/main.webp'
+  },
+  {
+    id: 'suntory-museum-art',
+    name: 'Suntory Museum of Art',
+    nameJp: 'サントリー美術館',
+    city: 'tokyo',
+    type: 'museum',
+    duration: '1-2 ore',
+    price: 1500,
+    coordinates: [35.6664, 139.7306],
+    description: 'Museo d\'arte tradizionale giapponese a Tokyo Midtown.',
+    image: 'https://www.suntory.com/sma/common2020/img/top/img_concept.jpg'
+  },
+
+  // ==================== NUOVE ATTRAZIONI KYOTO ====================
+  {
+    id: 'ryoanji',
+    name: 'Ryoan-ji',
+    nameJp: '龍安寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1 ora',
+    price: 500,
+    coordinates: [35.0345, 135.7183],
+    description: 'Tempio zen famoso per il suo giardino di rocce.',
+    image: 'https://www.japan-guide.com/g18/3909_01.jpg'
+  },
+  {
+    id: 'sanjusangendo',
+    name: 'Sanjusangen-do',
+    nameJp: '三十三間堂',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1 ora',
+    price: 600,
+    coordinates: [34.9879, 135.7717],
+    description: 'Tempio con 1001 statue dorate di Kannon.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/1280px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg'
+  },
+  {
+    id: 'ginkakuji',
+    name: 'Ginkaku-ji',
+    nameJp: '銀閣寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1 ora',
+    price: 500,
+    coordinates: [35.0270, 135.7982],
+    description: 'Il Padiglione d\'Argento con giardino di muschio e sabbia.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2016/05/kinkakuji-kyoto-golden-pavilion-1024x576.jpg'
+  },
+  {
+    id: 'nanzenji',
+    name: 'Nanzen-ji',
+    nameJp: '南禅寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1-2 ore',
+    price: 500,
+    coordinates: [35.0116, 135.7935],
+    description: 'Importante tempio zen con acquedotto in mattoni rossi.',
+    image: 'https://photos.smugmug.com/i-hFcX6RC/0/1c58ee68/L/famous-bamboo-grove-arashiyama-L.jpg'
+  },
+  {
+    id: 'kodaiji',
+    name: 'Kodai-ji',
+    nameJp: '高台寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1 ora',
+    price: 600,
+    coordinates: [35.0006, 135.7819],
+    description: 'Tempio con giardini illuminati di notte nel quartiere di Higashiyama.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2017/07/Kiyomizudera-Temple-Kyoto.jpg'
+  },
+  {
+    id: 'kurama-dera',
+    name: 'Kurama-dera',
+    nameJp: '鞍馬寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '2-3 ore',
+    price: 300,
+    coordinates: [35.1184, 135.7706],
+    description: 'Tempio di montagna con funivia e sentieri nella foresta.',
+    image: 'https://www.japan-guide.com/g18/3915_top.jpg'
+  },
+  {
+    id: 'mount-kurama',
+    name: 'Mount Kurama',
+    nameJp: '鞍馬山',
+    city: 'kyoto',
+    type: 'nature',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [35.1184, 135.7706],
+    description: 'Montagna sacra con templi e sentieri escursionistici.',
+    image: 'https://www.japan-guide.com/g18/3930_top.jpg'
+  },
+  {
+    id: 'maruyama-park',
+    name: 'Maruyama Park',
+    nameJp: '円山公園',
+    city: 'kyoto',
+    type: 'park',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [35.0037, 135.7786],
+    description: 'Parco con ciliegi secolari e vista su Yasaka Shrine.',
+    image: 'https://www.japan-guide.com/g18/3916_top.jpg'
+  },
+  {
+    id: 'kiyomizu-sannenzaka',
+    name: 'Sannenzaka & Ninenzaka',
+    nameJp: '三年坂・二年坂',
+    city: 'kyoto',
+    type: 'culture',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [34.9980, 135.7800],
+    description: 'Vicoli storici lastricati con negozi tradizionali.',
+    image: 'https://www.japan-guide.com/g18/3908_top.jpg'
+  },
+  {
+    id: 'pontocho-alley',
+    name: 'Pontocho Alley',
+    nameJp: '先斗町',
+    city: 'kyoto',
+    type: 'food',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.0055, 135.7711],
+    description: 'Vicolo stretto con ristoranti tradizionali lungo il fiume.',
+    image: 'https://deepjapan.org/wp-content/uploads/2024/10/dreamstime_l_171722516-scaled.jpg'
+  },
+  {
+    id: 'teramachi-street',
+    name: 'Teramachi Street',
+    nameJp: '寺町通',
+    city: 'kyoto',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [35.0070, 135.7650],
+    description: 'Strada commerciale coperta con templi e negozi.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2016/05/kinkakuji-kyoto-golden-pavilion-1024x576.jpg'
+  },
+  {
+    id: 'shinkyogoku',
+    name: 'Shinkyogoku',
+    nameJp: '新京極',
+    city: 'kyoto',
+    type: 'shopping',
+    duration: '2 ore',
+    price: 0,
+    coordinates: [35.0060, 135.7660],
+    description: 'Strada commerciale pedonale con negozi e ristoranti.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Kiyomizu.jpg'
+  },
+  {
+    id: 'kyoto-manga-museum',
+    name: 'Kyoto International Manga Museum',
+    nameJp: '京都国際マンガミュージアム',
+    city: 'kyoto',
+    type: 'museum',
+    duration: '2-3 ore',
+    price: 900,
+    coordinates: [35.0116, 135.7590],
+    description: 'Museo dedicato ai manga con oltre 300,000 volumi.',
+    image: 'https://www.japan-guide.com/g18/3909_01.jpg'
+  },
+  {
+    id: 'toei-kyoto-studio',
+    name: 'Toei Kyoto Studio Park',
+    nameJp: '東映太秦映画村',
+    city: 'kyoto',
+    type: 'entertainment',
+    duration: '3-4 ore',
+    price: 2400,
+    coordinates: [35.0120, 135.7100],
+    description: 'Parco a tema con set cinematografici di film samurai.',
+    image: 'https://www.japan-guide.com/g18/3930_top.jpg'
+  },
+  {
+    id: 'sagano-scenic-railway',
+    name: 'Sagano Scenic Railway',
+    nameJp: '嵯峨野観光鉄道',
+    city: 'kyoto',
+    type: 'entertainment',
+    duration: '1 ora',
+    price: 880,
+    coordinates: [35.0170, 135.6710],
+    description: 'Treno turistico con vista sul fiume Hozu.',
+    image: 'https://photos.smugmug.com/i-hFcX6RC/0/1c58ee68/L/famous-bamboo-grove-arashiyama-L.jpg'
+  },
+  {
+    id: 'arashiyama-monkey-park',
+    name: 'Arashiyama Monkey Park',
+    nameJp: '嵐山モンキーパーク',
+    city: 'kyoto',
+    type: 'nature',
+    duration: '1-2 ore',
+    price: 550,
+    coordinates: [35.0090, 135.6770],
+    description: 'Parco con scimmie selvatiche e vista panoramica su Kyoto.',
+    image: 'https://www.japan-guide.com/g18/3915_top.jpg'
+  },
+  {
+    id: 'tenryuji',
+    name: 'Tenryu-ji',
+    nameJp: '天龍寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '1 ora',
+    price: 500,
+    coordinates: [35.0156, 135.6738],
+    description: 'Tempio zen patrimonio UNESCO con giardino e vista sulle montagne.',
+    image: 'https://www.japan-guide.com/g18/3916_top.jpg'
+  },
+  {
+    id: 'jojakkoji',
+    name: 'Jojakko-ji',
+    nameJp: '常寂光寺',
+    city: 'kyoto',
+    type: 'temple',
+    duration: '30 min',
+    price: 400,
+    coordinates: [35.0230, 135.6650],
+    description: 'Tempio con vista panoramica e colori autunnali.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2017/07/Kiyomizudera-Temple-Kyoto.jpg'
+  },
+
+  // ==================== NUOVE ATTRAZIONI OSAKA ====================
+  {
+    id: 'osaka-aquarium-kaiyukan',
+    name: 'Osaka Aquarium Kaiyukan',
+    nameJp: '海遊館',
+    city: 'osaka',
+    type: 'entertainment',
+    duration: '2-3 ore',
+    price: 2700,
+    coordinates: [34.6545, 135.4288],
+    description: 'Uno dei più grandi acquari del mondo con balene e squali.',
+    image: 'https://res-1.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1648205341/osaka/H_00496_001'
+  },
+  {
+    id: 'osaka-castle-park',
+    name: 'Osaka Castle Park',
+    nameJp: '大阪城公園',
+    city: 'osaka',
+    type: 'park',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [34.6873, 135.5262],
+    description: 'Parco con il castello, mura storiche e ciliegi.',
+    image: 'https://www.japan-guide.com/g18/4000_top.jpg'
+  },
+  {
+    id: 'shinsekai',
+    name: 'Shinsekai',
+    nameJp: '新世界',
+    city: 'osaka',
+    type: 'food',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [34.6525, 135.5063],
+    description: 'Quartiere retrò con atmosfera vintage e kushikatsu.',
+    image: 'https://s3.voyapon.com/wp-content/uploads/2020/04/22172053/Osaka_Shinsekai_86.jpg'
+  },
+  {
+    id: 'amerikamura',
+    name: 'Amerikamura',
+    nameJp: 'アメリカ村',
+    city: 'osaka',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [34.6732, 135.4985],
+    description: 'Quartiere giovanile con moda vintage e cultura americana.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Amerikamura.jpg'
+  },
+  {
+    id: 'den-den-town',
+    name: 'Den Den Town',
+    nameJp: 'でんでんタウン',
+    city: 'osaka',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [34.6642, 135.5036],
+    description: 'Quartiere dell\'elettronica e anime, rivale di Akihabara.',
+    image: 'https://photos.smugmug.com/Osaka/Den-Den-Town-Guide/i-35CdRnV/0/840040b3/L/DenDen1-L.jpg'
+  },
+  {
+    id: 'namba-parks',
+    name: 'Namba Parks',
+    nameJp: 'なんばパークス',
+    city: 'osaka',
+    type: 'shopping',
+    duration: '2-3 ore',
+    price: 0,
+    coordinates: [34.6618, 135.5017],
+    description: 'Centro commerciale con giardini pensili.',
+    image: 'https://cdn.osaka-info.jp/page_translation/content/dd498958-04bd-11e8-971b-06326e701dd4.jpeg'
+  },
+  {
+    id: 'shinsaibashi-suji',
+    name: 'Shinsaibashi-suji',
+    nameJp: '心斎橋筋',
+    city: 'osaka',
+    type: 'shopping',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [34.6785, 135.5002],
+    description: 'Strada commerciale coperta con negozi di moda.',
+    image: 'https://rimage.gnst.jp/livejapan.com/public/article/detail/a/20/00/a2000456/img/basic/a2000456_main.jpg'
+  },
+  {
+    id: 'expo-city',
+    name: 'Expo City',
+    nameJp: 'EXPOCITY',
+    city: 'osaka',
+    type: 'entertainment',
+    duration: '1 giorno',
+    price: 0,
+    coordinates: [34.8040, 135.5350],
+    description: 'Complesso di intrattenimento con ruota panoramica e negozi.',
+    image: 'https://www.japan-guide.com/g18/4007_top.jpg'
+  },
+  {
+    id: 'shitennoji-honbo',
+    name: 'Shitenno-ji Honbo Garden',
+    nameJp: '四天王寺本坊庭園',
+    city: 'osaka',
+    type: 'temple',
+    duration: '1 ora',
+    price: 300,
+    coordinates: [34.6533, 135.5164],
+    description: 'Giardino del tempio più antico del Giappone.',
+    image: 'https://cdn.gaijinpot.com/app/uploads/sites/6/2018/10/sumiyoshi-shrine-bridge-2.jpg'
+  },
+  {
+    id: 'namba-yasaka',
+    name: 'Namba Yasaka Shrine',
+    nameJp: '難波八阪神社',
+    city: 'osaka',
+    type: 'temple',
+    duration: '30 min',
+    price: 0,
+    coordinates: [34.6600, 135.5000],
+    description: 'Santuario con la famosa testa di leone gigante.',
+    image: 'https://www.japan-guide.com/g18/4007_top.jpg'
+  },
+  {
+    id: 'osaka-museum-history',
+    name: 'Osaka Museum of History',
+    nameJp: '大阪歴史博物館',
+    city: 'osaka',
+    type: 'museum',
+    duration: '2 ore',
+    price: 600,
+    coordinates: [34.6820, 135.5200],
+    description: 'Museo con ricostruzioni della storia di Osaka.',
+    image: 'https://www.japan-guide.com/g18/4000_top.jpg'
+  },
+  {
+    id: 'kamigata-ukiyo-e',
+    name: 'Kamigata Ukiyo-e Museum',
+    nameJp: '上方浮世絵館',
+    city: 'osaka',
+    type: 'museum',
+    duration: '1 ora',
+    price: 500,
+    coordinates: [34.6687, 135.5013],
+    description: 'Museo dedicato alle stampe ukiyo-e di Osaka.',
+    image: 'https://cdn.cheapoguides.com/wp-content/uploads/sites/3/2016/12/umeda-sky-building-GettyImages-804747028.jpg'
+  },
+  {
+    id: 'tempozan-harbor',
+    name: 'Tempozan Harbor Village',
+    nameJp: '天保山ハーバービレッジ',
+    city: 'osaka',
+    type: 'entertainment',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [34.6545, 135.4288],
+    description: 'Area portuale con acquario, ruota panoramica e negozi.',
+    image: 'https://res-1.cloudinary.com/jnto/image/upload/w_2064,h_1300,c_fill,f_auto,fl_lossy,q_auto/v1648205341/osaka/H_00496_001'
+  },
+  {
+    id: 'spa-world',
+    name: 'Spa World',
+    nameJp: 'スパワールド',
+    city: 'osaka',
+    type: 'entertainment',
+    duration: '3-4 ore',
+    price: 1300,
+    coordinates: [34.6489, 135.5050],
+    description: 'Centro termale con bagni tematici da tutto il mondo.',
+    image: 'https://s3.voyapon.com/wp-content/uploads/2020/04/22172053/Osaka_Shinsekai_86.jpg'
+  },
+  {
+    id: 'tsurumi-ryokuchi',
+    name: 'Tsurumi Ryokuchi Park',
+    nameJp: '鶴見緑地公園',
+    city: 'osaka',
+    type: 'park',
+    duration: '2 ore',
+    price: 0,
+    coordinates: [34.6814, 135.5345],
+    description: 'Parco con giardini, laghi e area per barbecue.',
+    image: 'https://www.japan-guide.com/g18/4007_top.jpg'
+  },
+  {
+    id: 'kema-sakuranomiya',
+    name: 'Kema Sakuranomiya Park',
+    nameJp: '毛馬桜之宮公園',
+    city: 'osaka',
+    type: 'park',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [34.6969, 135.5282],
+    description: 'Parco lungo il fiume con oltre 4000 ciliegi.',
+    image: 'https://www.japan-guide.com/g18/4000_top.jpg'
+  },
+  {
+    id: 'instant-ramen-museum',
+    name: 'Momofuku Ando Instant Ramen Museum',
+    nameJp: 'インスタントラーメン発明記念館',
+    city: 'osaka',
+    type: 'museum',
+    duration: '1-2 ore',
+    price: 500,
+    coordinates: [34.7752, 135.5106],
+    description: 'Museo dedicato all\'inventore del ramen istantaneo.',
+    image: 'https://www.japan-guide.com/g18/4007_top.jpg'
+  },
+  {
+    id: 'takoyaki-museum',
+    name: 'Takoyaki Museum',
+    nameJp: 'たこ焼きミュージアム',
+    city: 'osaka',
+    type: 'food',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [34.6545, 135.4288],
+    description: 'Museo dedicato al takoyaki con negozi e ristoranti.',
+    image: 'https://travel.rakuten.com/contents/sites/contents/files/styles/max_1300x1300/public/2024-10/dotonbori-guide_6.jpg?itok=MNg2Rx7p'
+  },
+  {
+    id: 'janjan-yokocho',
+    name: 'Janjan Yokocho',
+    nameJp: 'ジャンジャン横丁',
+    city: 'osaka',
+    type: 'food',
+    duration: '1-2 ore',
+    price: 0,
+    coordinates: [34.6525, 135.5063],
+    description: 'Vicolo tradizionale con ristoranti di kushikatsu.',
+    image: 'https://s3.voyapon.com/wp-content/uploads/2020/04/22172053/Osaka_Shinsekai_86.jpg'
+  },
+  {
+    id: 'hozenji',
+    name: 'Hozen-ji Temple',
+    nameJp: '法善寺',
+    city: 'osaka',
+    type: 'temple',
+    duration: '30 min',
+    price: 0,
+    coordinates: [34.6687, 135.5013],
+    description: 'Piccolo tempio nel cuore di Dotonbori con statua coperta di muschio.',
+    image: 'https://travel.rakuten.com/contents/sites/contents/files/styles/max_1300x1300/public/2024-10/dotonbori-guide_6.jpg?itok=MNg2Rx7p'
+  },
+
+  // ==================== NUOVE ATTRAZIONI NARA ====================
+  {
+    id: 'kofukuji',
+    name: 'Kofuku-ji',
+    nameJp: '興福寺',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [34.6833, 135.8333],
+    description: 'Tempio con la famosa pagoda a cinque piani.',
+    image: 'https://www.japan-guide.com/g18/4101_03.jpg'
+  },
+  {
+    id: 'kasuga-taisha',
+    name: 'Kasuga Taisha',
+    nameJp: '春日大社',
+    city: 'nara',
+    type: 'temple',
+    duration: '1-2 ore',
+    price: 500,
+    coordinates: [34.6814, 135.8486],
+    description: 'Santuario shintoista con migliaia di lanterne di pietra.',
+    image: 'https://www.kasugataisha.or.jp/wp-content/uploads/2020/01/%E6%98%A5%E6%97%A5%E5%A4%A7%E7%A4%BE%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.jpg'
+  },
+  {
+    id: 'todaiji-daibutsu',
+    name: 'Todai-ji Daibutsu-den',
+    nameJp: '東大寺大仏殿',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 600,
+    coordinates: [34.6890, 135.8398],
+    description: 'Il più grande edificio di legno del mondo con il Grande Buddha.',
+    image: 'https://www.japan-guide.com/g18/4101_01.jpg'
+  },
+  {
+    id: 'nigatsudo',
+    name: 'Nigatsu-do',
+    nameJp: '二月堂',
+    city: 'nara',
+    type: 'temple',
+    duration: '30 min',
+    price: 0,
+    coordinates: [34.6890, 135.8400],
+    description: 'Padiglione con vista panoramica su Nara.',
+    image: 'https://www.japan-guide.com/g19/4104_02.jpg'
+  },
+  {
+    id: 'horyuji',
+    name: 'Horyu-ji',
+    nameJp: '法隆寺',
+    city: 'nara',
+    type: 'temple',
+    duration: '2 ore',
+    price: 700,
+    coordinates: [34.6142, 135.7344],
+    description: 'Tempio patrimonio UNESCO con la pagoda più antica del Giappone.',
+    image: 'https://www.japan-guide.com/g19/4104_11.jpg'
+  },
+  {
+    id: 'yakushiji',
+    name: 'Yakushi-ji',
+    nameJp: '薬師寺',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 500,
+    coordinates: [34.6689, 135.7847],
+    description: 'Tempio con due pagode gemelle.',
+    image: 'https://www.japan-guide.com/g19/4105_top.jpg'
+  },
+  {
+    id: 'toshodaiji',
+    name: 'Toshodai-ji',
+    nameJp: '唐招提寺',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 400,
+    coordinates: [34.6756, 135.7847],
+    description: 'Tempio fondato dal monaco cinese Ganjin.',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/81/cb/12/caption.jpg?w=900&h=500&s=1'
+  },
+  {
+    id: 'saidaiji',
+    name: 'Saidai-ji',
+    nameJp: '西大寺',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 300,
+    coordinates: [34.6933, 135.8121],
+    description: 'Tempio con famosa cerimonia del fuoco.',
+    image: 'https://www.japan-experience.com/sites/default/files/images/content_images/saidaiji-temple-1.jpg'
+  },
+  {
+    id: 'nara-deer-park',
+    name: 'Nara Deer Park',
+    nameJp: '奈良公園',
+    city: 'nara',
+    type: 'park',
+    duration: '3 ore',
+    price: 0,
+    coordinates: [34.6851, 135.8430],
+    description: 'Parco con oltre 1000 cervi sacri liberi.',
+    image: 'https://narashikanko.or.jp/lsc/upfile/article/0000/0022/22_1_l.jpg'
+  },
+  {
+    id: 'isuien-garden',
+    name: 'Isuien Garden',
+    nameJp: '依水園',
+    city: 'nara',
+    type: 'park',
+    duration: '1 ora',
+    price: 650,
+    coordinates: [34.6906, 135.8356],
+    description: 'Bellissimo giardino giapponese con vista su Todai-ji.',
+    image: 'https://www.his-usa.com/destination-japan/up_img/article/fs_1468509016_0.jpg'
+  },
+  {
+    id: 'yoshino-mountain',
+    name: 'Mount Yoshino',
+    nameJp: '吉野山',
+    city: 'nara',
+    type: 'nature',
+    duration: '1 giorno',
+    price: 0,
+    coordinates: [34.3564, 135.8583],
+    description: 'Montagna famosa per i ciliegi in fiore.',
+    image: 'https://www.japan-guide.com/g21/4152_11.jpg'
+  },
+  {
+    id: 'naramachi-district',
+    name: 'Naramachi District',
+    nameJp: 'ならまち',
+    city: 'nara',
+    type: 'culture',
+    duration: '2 ore',
+    price: 0,
+    coordinates: [34.6789, 135.8289],
+    description: 'Quartiere storico con case tradizionali di mercanti.',
+    image: 'https://www.japan-guide.com/g19/4108_02.jpg'
+  },
+  {
+    id: 'nara-national-museum',
+    name: 'Nara National Museum',
+    nameJp: '奈良国立博物館',
+    city: 'nara',
+    type: 'museum',
+    duration: '2 ore',
+    price: 700,
+    coordinates: [34.6833, 135.8333],
+    description: 'Museo con arte buddista e tesori nazionali.',
+    image: 'https://www.japan-guide.com/g18/4101_01.jpg'
+  },
+  {
+    id: 'asuka-village',
+    name: 'Asuka Village',
+    nameJp: '飛鳥',
+    city: 'nara',
+    type: 'culture',
+    duration: '1 giorno',
+    price: 0,
+    coordinates: [34.5178, 135.8475],
+    description: 'Antico villaggio imperiale con tombe e templi.',
+    image: 'https://www.japan-guide.com/g19/4104_02.jpg'
+  },
+  {
+    id: 'heijo-palace',
+    name: 'Heijo Palace',
+    nameJp: '平城宮跡',
+    city: 'nara',
+    type: 'culture',
+    duration: '2 ore',
+    price: 0,
+    coordinates: [34.6933, 135.7950],
+    description: 'Rovine del palazzo imperiale dell\'antica Nara.',
+    image: 'https://www.japan-guide.com/g18/4101_03.jpg'
+  },
+  {
+    id: 'miwa',
+    name: 'Mount Miwa',
+    nameJp: '三輪山',
+    city: 'nara',
+    type: 'nature',
+    duration: '3-4 ore',
+    price: 0,
+    coordinates: [34.5178, 135.8475],
+    description: 'Montagna sacra con santuario Omiwa.',
+    image: 'https://www.japan-guide.com/g21/4152_11.jpg'
+  },
+  {
+    id: 'kashihara-jingu',
+    name: 'Kashihara Jingu',
+    nameJp: '橿原神宮',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [34.4841, 135.7936],
+    description: 'Santuario dedicato al primo imperatore del Giappone.',
+    image: 'https://www.japan-guide.com/g19/4104_11.jpg'
+  },
+  {
+    id: 'oharano',
+    name: 'Oharano Shrine',
+    nameJp: '大原野神社',
+    city: 'nara',
+    type: 'temple',
+    duration: '1 ora',
+    price: 0,
+    coordinates: [34.3564, 135.8583],
+    description: 'Santuario con ciliegi e aceri in un\'atmosfera tranquilla.',
+    image: 'https://www.japan-guide.com/g18/4101_01.jpg'
+  },
 ];
 
 // Tokyo Metro
@@ -977,6 +1913,39 @@ export const metroStations: MetroStation[] = [
   ...naraStations,
 ];
 
+// Bus Lines for each city
+export const tokyoBusLines: MetroLine[] = [
+  { id: 'toei-01', name: 'Toei Bus 01 (Shibuya-Ginza)', color: '#0066CC', stations: [] },
+  { id: 'toei-02', name: 'Toei Bus 02 (Shinjuku-Ueno)', color: '#009944', stations: [] },
+  { id: 'toei-03', name: 'Toei Bus 03 (Asakusa-Roppongi)', color: '#FF6600', stations: [] },
+  { id: 'toei-04', name: 'Toei Bus 04 (Tokyo-Odaiba)', color: '#CC0066', stations: [] },
+  { id: 'toei-05', name: 'Toei Bus 05 (Ikebukuro-Shibuya)', color: '#9900CC', stations: [] },
+];
+
+export const kyotoBusLines: MetroLine[] = [
+  { id: 'kyoto-100', name: 'Bus 100 (Templi del Centro)', color: '#E60012', stations: [] },
+  { id: 'kyoto-101', name: 'Bus 101 (Gion-Kiyomizu)', color: '#00A040', stations: [] },
+  { id: 'kyoto-102', name: 'Bus 102 (Arashiyama)', color: '#4169E1', stations: [] },
+  { id: 'kyoto-204', name: 'Bus 204 (Kurama-Kibune)', color: '#FF8C00', stations: [] },
+  { id: 'kyoto-206', name: 'Bus 206 (Kinkakuji-Ginkakuji)', color: '#8B4513', stations: [] },
+];
+
+export const osakaBusLines: MetroLine[] = [
+  { id: 'osaka-1', name: 'Bus 1 (Umeda-Namba)', color: '#E60012', stations: [] },
+  { id: 'osaka-2', name: 'Bus 2 (Tennoji-Shinsaibashi)', color: '#00A040', stations: [] },
+  { id: 'osaka-3', name: 'Bus 3 (Osaka Castle-Kyobashi)', color: '#4169E1', stations: [] },
+  { id: 'osaka-4', name: 'Bus 4 (USJ-Tempozan)', color: '#FF8C00', stations: [] },
+  { id: 'osaka-5', name: 'Bus 5 (Shinsekai-Dotonbori)', color: '#8B4513', stations: [] },
+];
+
+export const naraBusLines: MetroLine[] = [
+  { id: 'nara-1', name: 'Bus 1 (Stazione-Todaiji)', color: '#E60012', stations: [] },
+  { id: 'nara-2', name: 'Bus 2 (Nara Park-Kasuga)', color: '#00A040', stations: [] },
+  { id: 'nara-70', name: 'Bus 70 (Yoshino)', color: '#FF8C00', stations: [] },
+  { id: 'nara-72', name: 'Bus 72 (Horyuji)', color: '#4169E1', stations: [] },
+  { id: 'nara-97', name: 'Bus 97 (Asuka)', color: '#8B4513', stations: [] },
+];
+
 // All metro lines combined
 export const metroLines: MetroLine[] = [
   ...tokyoMetroLines,
@@ -984,6 +1953,25 @@ export const metroLines: MetroLine[] = [
   ...osakaMetroLines,
   ...naraLines,
 ];
+
+// All bus lines combined
+export const busLines: MetroLine[] = [
+  ...tokyoBusLines,
+  ...kyotoBusLines,
+  ...osakaBusLines,
+  ...naraBusLines,
+];
+
+// Get bus lines for a specific city
+export function getBusLinesForCity(city: string): MetroLine[] {
+  switch (city) {
+    case 'tokyo': return tokyoBusLines;
+    case 'kyoto': return kyotoBusLines;
+    case 'osaka': return osakaBusLines;
+    case 'nara': return naraBusLines;
+    default: return [];
+  }
+}
 
 export const cityCoordinates: Record<string, [number, number]> = {
   tokyo: [35.6762, 139.6503],
@@ -1125,6 +2113,23 @@ export function findNearestStation(coordinates: [number, number], city: string):
   return nearest;
 }
 
+// Transport segment types
+export interface TransportSegment {
+  type: 'metro' | 'bus' | 'walk';
+  name: string;
+  color?: string;
+  distance: number; // km
+  duration: number; // minutes
+}
+
+export interface CompleteRoute {
+  segments: TransportSegment[];
+  totalDistance: number;
+  totalDuration: number;
+  fromStation?: MetroStation;
+  toStation?: MetroStation;
+}
+
 // Helper function to find best metro route between two points
 export function findMetroRoute(fromCoords: [number, number], toCoords: [number, number], city: string): { fromStation: MetroStation; toStation: MetroStation; line: string } | null {
   const fromStation = findNearestStation(fromCoords, city);
@@ -1144,4 +2149,123 @@ export function findMetroRoute(fromCoords: [number, number], toCoords: [number, 
   
   // If no direct line, return the nearest stations anyway
   return { fromStation, toStation, line: fromStation.line };
+}
+
+// Calculate complete route with metro, bus, and walking segments
+export function calculateCompleteRoute(
+  fromCoords: [number, number], 
+  toCoords: [number, number], 
+  city: string
+): CompleteRoute {
+  const segments: TransportSegment[] = [];
+  
+  // Calculate direct distance
+  const R = 6371;
+  const dLat = (toCoords[0] - fromCoords[0]) * Math.PI / 180;
+  const dLon = (toCoords[1] - fromCoords[1]) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(fromCoords[0] * Math.PI / 180) * Math.cos(toCoords[0] * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const directDistance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  
+  // Find nearest stations
+  const fromStation = findNearestStation(fromCoords, city);
+  const toStation = findNearestStation(toCoords, city);
+  
+  // Calculate walking distance to/from stations
+  const walkToStation = fromStation ? calculateDistance(fromCoords, fromStation.coordinates) : 0;
+  const walkFromStation = toStation ? calculateDistance(toCoords, toStation.coordinates) : 0;
+  
+  // Determine transport mode based on distance
+  if (directDistance < 1.5) {
+    // Walking only for short distances
+    segments.push({
+      type: 'walk',
+      name: 'A piedi',
+      distance: directDistance,
+      duration: Math.round(directDistance * 12)
+    });
+  } else if (directDistance < 4 && city === 'kyoto') {
+    // Bus for medium distances in Kyoto (bus-friendly city)
+    const busLines = getBusLinesForCity(city);
+    const busLine = busLines[Math.floor(Math.random() * busLines.length)];
+    
+    if (walkToStation > 0.3) {
+      segments.push({
+        type: 'walk',
+        name: `A piedi fino alla fermata`,
+        distance: walkToStation,
+        duration: Math.round(walkToStation * 12)
+      });
+    }
+    
+    segments.push({
+      type: 'bus',
+      name: busLine?.name || 'Bus',
+      color: busLine?.color,
+      distance: directDistance * 0.7,
+      duration: Math.round(directDistance * 8)
+    });
+    
+    if (walkFromStation > 0.3) {
+      segments.push({
+        type: 'walk',
+        name: `A piedi dalla fermata`,
+        distance: walkFromStation,
+        duration: Math.round(walkFromStation * 12)
+      });
+    }
+  } else {
+    // Metro/train for longer distances
+    if (walkToStation > 0.3) {
+      segments.push({
+        type: 'walk',
+        name: `A piedi fino a ${fromStation?.name || 'stazione'}`,
+        distance: walkToStation,
+        duration: Math.round(walkToStation * 12)
+      });
+    }
+    
+    if (fromStation && toStation) {
+      const metroDistance = calculateDistance(fromStation.coordinates, toStation.coordinates);
+      segments.push({
+        type: 'metro',
+        name: fromStation.line,
+        color: fromStation.lineColor,
+        distance: metroDistance,
+        duration: Math.round(metroDistance * 4 + 5) // Metro is faster
+      });
+    }
+    
+    if (walkFromStation > 0.3) {
+      segments.push({
+        type: 'walk',
+        name: `A piedi da ${toStation?.name || 'stazione'}`,
+        distance: walkFromStation,
+        duration: Math.round(walkFromStation * 12)
+      });
+    }
+  }
+  
+  const totalDistance = segments.reduce((sum, s) => sum + s.distance, 0);
+  const totalDuration = segments.reduce((sum, s) => sum + s.duration, 0);
+  
+  return {
+    segments,
+    totalDistance,
+    totalDuration,
+    fromStation: fromStation || undefined,
+    toStation: toStation || undefined
+  };
+}
+
+// Helper function to calculate distance between two coordinates
+function calculateDistance(coord1: [number, number], coord2: [number, number]): number {
+  const R = 6371;
+  const dLat = (coord2[0] - coord1[0]) * Math.PI / 180;
+  const dLon = (coord2[1] - coord1[1]) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(coord1[0] * Math.PI / 180) * Math.cos(coord2[0] * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }

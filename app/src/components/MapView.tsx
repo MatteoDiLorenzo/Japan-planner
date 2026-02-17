@@ -272,6 +272,13 @@ export function MapView({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         />
+        
+        {/* Italian Labels Layer */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          opacity={0.3}
+        />
 
         {/* Metro Lines */}
         {showMetro && cityMetroLines.map((line) => {
@@ -469,9 +476,9 @@ export function MapView({
         })}
       </MapContainer>
 
-      {/* Add Hotel Button */}
+        {/* Add Hotel Button */}
       {showHotels && (
-        <div className="absolute top-4 left-4 z-[1]">
+        <div className="absolute top-4 left-4 z-[500]">
           <Dialog open={showAddHotelDialog} onOpenChange={setShowAddHotelDialog}>
             <DialogTrigger asChild>
               <Button className="bg-blue-500 hover:bg-blue-600 shadow-lg">
@@ -536,46 +543,78 @@ export function MapView({
       )}
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm rounded-xl p-3 border border-white/10 z-[1]">
-        <div className="flex items-center gap-2 mb-2">
-          <Layers className="w-4 h-4 text-white/70" />
-          <span className="text-white text-sm font-medium">Legenda</span>
+      <div className="absolute bottom-4 left-4 bg-black/90 backdrop-blur-sm rounded-xl p-4 border border-white/20 z-[500] max-w-[200px]">
+        <div className="flex items-center gap-2 mb-3">
+          <Layers className="w-4 h-4 text-white" />
+          <span className="text-white text-sm font-bold">Legenda</span>
         </div>
-        <div className="space-y-1.5">
+        
+        {/* Attractions */}
+        <div className="space-y-2 mb-3">
+          <p className="text-white/50 text-xs font-medium uppercase tracking-wider">Attrazioni</p>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-purple-500" />
-            <span className="text-white/70 text-xs">Tempio</span>
+            <div className="w-3 h-3 rounded-full bg-purple-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Tempio</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-emerald-500" />
-            <span className="text-white/70 text-xs">Natura</span>
+            <div className="w-3 h-3 rounded-full bg-emerald-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Natura</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-amber-500" />
-            <span className="text-white/70 text-xs">Gastronomia</span>
+            <div className="w-3 h-3 rounded-full bg-amber-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Gastronomia</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-pink-500" />
-            <span className="text-white/70 text-xs">Shopping</span>
+            <div className="w-3 h-3 rounded-full bg-pink-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Shopping</span>
           </div>
-          {showMetro && (
-            <div className="flex items-center gap-2 pt-1 border-t border-white/10">
-              <div className="w-2 h-2 rounded-full bg-blue-500" />
-              <span className="text-white/70 text-xs">Metro</span>
-            </div>
-          )}
-          {showHotels && (
-            <div className="flex items-center gap-2 pt-1 border-t border-white/10">
-              <div className="w-3 h-3 rounded bg-blue-500" />
-              <span className="text-white/70 text-xs">Hotel</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-blue-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Cultura</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-green-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Parco</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-indigo-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Museo</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-orange-500 border border-white/30" />
+            <span className="text-white/90 text-xs">Divertimento</span>
+          </div>
         </div>
+        
+        {/* Transport */}
+        {(showMetro || showHotels) && (
+          <div className="pt-2 border-t border-white/10 space-y-2">
+            <p className="text-white/50 text-xs font-medium uppercase tracking-wider">Trasporti</p>
+            {showMetro && (
+              <>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400" />
+                  <span className="text-white/90 text-xs">Metro/Treno</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-orange-400" />
+                  <span className="text-white/90 text-xs">Bus</span>
+                </div>
+              </>
+            )}
+            {showHotels && (
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded bg-purple-500 border border-white/30" />
+                <span className="text-white/90 text-xs">Hotel</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Selected Station Panel */}
       {selectedStation && (
-        <div className="absolute top-4 right-4 w-72 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-white/10 z-[1]">
+        <div className="absolute top-4 right-4 w-72 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-white/10 z-[500]">
           <div className="flex items-start justify-between mb-3">
             <div>
               <h3 className="font-semibold text-white">{selectedStation.name}</h3>
@@ -612,7 +651,7 @@ export function MapView({
 
       {/* Selected Attraction Panel */}
       {selectedAttraction && (
-        <div className="absolute top-4 right-4 w-80 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-white/10 z-[1]">
+        <div className="absolute top-4 right-4 w-80 bg-black/90 backdrop-blur-md rounded-xl p-4 border border-white/10 z-[500]">
           {selectedAttraction.image && (
             <img 
               src={selectedAttraction.image} 

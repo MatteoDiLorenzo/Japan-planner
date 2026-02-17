@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Clock, MapPin, Footprints, Train, Trash2, Plus, Calendar, ChevronDown, ChevronUp, Navigation, Hotel, ExternalLink } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Clock, MapPin, Footprints, Train, Trash2, Plus, Calendar, ChevronDown, ChevronUp, Navigation, Hotel, ExternalLink, Share2, Download, Camera, GripVertical, Wallet, Bus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useTrip } from '@/hooks/useTrip';
-import { attractions, findMetroRoute } from '@/data/attractions';
+import { attractions, findMetroRoute, calculateCompleteRoute, getBusLinesForCity } from '@/data/attractions';
 import type { Attraction } from '@/types';
 
 const timeSlots = [
@@ -22,52 +22,172 @@ interface TransportInfoProps {
 }
 
 function TransportInfo({ fromId, toId, city }: TransportInfoProps) {
-  const { getAttractionDistance } = useTrip();
-  
   const fromAttraction = attractions.find(a => a.id === fromId);
   const toAttraction = attractions.find(a => a.id === toId);
   
   if (!fromAttraction || !toAttraction) return null;
   
-  const distance = getAttractionDistance(fromId, toId);
-  const travelTime = distance < 1.5 ? Math.round(distance * 12) : Math.round(10 + distance * 3 + 5);
-  const isWalking = distance < 1.5;
+  // Calculate complete route with all transport modes
+  const route = calculateCompleteRoute(fromAttraction.coordinates, toAttraction.coordinates, city);
   
-  // Find metro route
-  const metroRoute = findMetroRoute(fromAttraction.coordinates, toAttraction.coordinates, city);
+  // Format route description
+  const getRouteDescription = () => {
+    if (route.segments.length === 1 && route.segments[0].type === 'walk') {
+      return { icon: <Footprints className="w-3.5 h-3.5 text-emerald-400" />, text: 'A piedi' };
+    }
+    
+    const hasBus = route.segments.some(s => s.type === 'bus');
+    const hasMetro = route.segments.some(s => s.type === 'metro');
+    
+    if (hasBus && hasMetro) {
+      return { icon: <><Train className="w-3.5 h-3.5 text-blue-400" /><Bus className="w-3.5 h-3.5 text-orange-400 -ml-1" /></>, text: 'Metro + Bus' };
+    } else if (hasBus) {
+      return { icon: <Bus className="w-3.5 h-3.5 text-orange-400" />, text: 'Bus' };
+    } else if (hasMetro) {
+      return { icon: <Train className="w-3.5 h-3.5 text-blue-400" />, text: 'Metro' };
+    }
+    
+    return { icon: <Footprints className="w-3.5 h-3.5 text-emerald-400" />, text: 'A piedi' };
+  };
+  
+  const { icon, text } = getRouteDescription();
+  
+  // Format detailed segments
+  const formatSegments = () => {
+    return route.segments.map((segment, idx) => {
+      if (segment.type === 'walk') {
+        return `${segment.distance < 0.5 ? segment.duration + 'min a piedi' : segment.duration + 'min a piedi'}`;
+      } else if (segment.type === 'metro') {
+        return `${segment.name} ${segment.distance.toFixed(1)}km`;
+      } else if (segment.type === 'bus') {
+        return `Bus ${segment.distance.toFixed(1)}km`;
+      }
+      return '';
+    }).filter(Boolean).join(' + ');
+  };
   
   return (
-    <div className="flex items-center gap-3 py-2 px-3 bg-white/5 rounded-lg my-2">
-      <div className="flex items-center gap-1.5 text-white/60">
-        {isWalking ? (
-          <Footprints className="w-3.5 h-3.5 text-emerald-400" />
-        ) : (
-          <Train className="w-3.5 h-3.5 text-blue-400" />
-        )}
-        <span className="text-xs">
-          {isWalking ? 'A piedi' : 'Metro'}
-        </span>
-      </div>
-      <div className="flex items-center gap-3 text-xs text-white/50">
-        <span>{distance.toFixed(1)} km</span>
-        <span>~{travelTime} min</span>
+    <div className="flex flex-col py-2 px-3 bg-white/5 rounded-lg my-2">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 text-white/60">
+          {icon}
+          <span className="text-xs">{text}</span>
+        </div>
+        <div className="flex items-center gap-3 text-xs text-white/50">
+          <span>{route.totalDistance.toFixed(1)} km</span>
+          <span>~{route.totalDuration} min</span>
+        </div>
       </div>
       
-      {/* Metro Line Info */}
-      {metroRoute && (
-        <div className="flex items-center gap-2 ml-auto">
-          <div 
-            className="w-2 h-2 rounded-full" 
-            style={{ backgroundColor: metroRoute.fromStation.lineColor }}
-          />
-          <span className="text-xs text-white/70">{metroRoute.line}</span>
+      {/* Detailed segments */}
+      {route.segments.length > 1 && (
+        <div className="mt-1 text-xs text-white/40 pl-5">
+          {formatSegments()}
         </div>
       )}
       
-      <div className="flex-1 h-px bg-white/10 relative">
+      {/* Metro/Bus Line Info */}
+      {route.segments.some(s => s.type === 'metro' || s.type === 'bus') && (
+        <div className="flex items-center gap-2 mt-1 ml-auto">
+          {route.segments.filter(s => s.type === 'metro' || s.type === 'bus').map((s, idx) => (
+            <div key={idx} className="flex items-center gap-1">
+              <div 
+                className="w-2 h-2 rounded-full" 
+                style={{ backgroundColor: s.color || '#666' }}
+              />
+              <span className="text-xs text-white/70">{s.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      
+      <div className="flex-1 h-px bg-white/10 relative mt-2">
         <div className="absolute right-0 top-1/2 -translate-y-1/2">
           <Navigation className="w-3 h-3 text-white/30 rotate-90" />
         </div>
+      </div>
+    </div>
+  );
+}
+
+interface DraggableActivityProps {
+  item: { activity: { id: string; startTime: string; endTime: string }; attraction?: Attraction };
+  index: number;
+  slotAttractions: { activity: { id: string; startTime: string; endTime: string }; attraction?: Attraction }[];
+  currentDay: { id: string; activities: any[] };
+  onDragStart: (index: number) => void;
+  onDragOver: (index: number) => void;
+  onDragEnd: () => void;
+  draggingIndex: number | null;
+}
+
+function DraggableActivity({ 
+  item, 
+  index, 
+  slotAttractions, 
+  currentDay, 
+  onDragStart, 
+  onDragOver, 
+  onDragEnd, 
+  draggingIndex 
+}: DraggableActivityProps) {
+  const { removeFromDay, getAttractionDistance, getEstimatedTravelTime } = useTrip();
+  const prevItem = index > 0 ? slotAttractions[index - 1] : null;
+  const isDragging = draggingIndex === index;
+  
+  return (
+    <div 
+      draggable
+      onDragStart={() => onDragStart(index)}
+      onDragOver={(e) => { e.preventDefault(); onDragOver(index); }}
+      onDragEnd={onDragEnd}
+      className={`transition-all duration-200 ${isDragging ? 'opacity-50 scale-95' : 'opacity-100'}`}
+    >
+      {/* Transport Info */}
+      {prevItem && (
+        <TransportInfo 
+          fromId={prevItem.attraction!.id} 
+          toId={item.attraction!.id}
+          city={item.attraction!.city}
+        />
+      )}
+      
+      {/* Activity Card */}
+      <div className="flex items-center gap-3 p-3 bg-white/10 rounded-lg cursor-move hover:bg-white/15 transition-colors group">
+        <div className="cursor-grab active:cursor-grabbing text-white/30 hover:text-white/60">
+          <GripVertical className="w-5 h-5" />
+        </div>
+        {item.attraction!.image && (
+          <img 
+            src={item.attraction!.image} 
+            alt={item.attraction!.name}
+            className="w-12 h-12 object-cover rounded-lg flex-shrink-0"
+          />
+        )}
+        <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          <MapPin className="w-5 h-5 text-red-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-white font-medium truncate">{item.attraction!.name}</p>
+          <div className="flex items-center gap-3 text-sm text-white/50">
+            <span className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              {item.activity.startTime} - {item.activity.endTime}
+            </span>
+            <span>{item.attraction!.duration}</span>
+            {item.attraction!.price > 0 && (
+              <span>¥{item.attraction!.price}</span>
+            )}
+          </div>
+        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-white/50 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          onClick={() => removeFromDay(item.activity.id, currentDay!.id)}
+        >
+          <Trash2 className="w-4 h-4" />
+        </Button>
       </div>
     </div>
   );
@@ -83,10 +203,19 @@ export function DayBuilderSection() {
     removeFromDay,
     getTotalSpent,
     totalBudget,
+    getAttractionDistance,
+    getEstimatedTravelTime,
+    reorderActivities,
+    setTotalBudget,
   } = useTrip();
   
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [expandedSlots, setExpandedSlots] = useState<string[]>(['morning']);
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const toggleSlot = (slotId: string) => {
     setExpandedSlots(prev => 
@@ -149,25 +278,201 @@ export function DayBuilderSection() {
     }, 0);
   };
 
-  // Save trip function
-  const handleSaveTrip = () => {
+  // Drag and drop handlers
+  const handleDragStart = (index: number) => {
+    setDraggingIndex(index);
+  };
+
+  const handleDragOver = (index: number) => {
+    if (draggingIndex === null || draggingIndex === index) return;
+    setDragOverIndex(index);
+  };
+
+  const handleDragEnd = (slotId: string) => {
+    if (draggingIndex !== null && dragOverIndex !== null && draggingIndex !== dragOverIndex && currentDay) {
+      const slotAttractions = getAttractionsForSlot(currentDay.id, slotId);
+      // Find the actual indices in the day's activities array
+      const dayActivities = currentDay.activities;
+      const fromActivity = slotAttractions[draggingIndex];
+      const toActivity = slotAttractions[dragOverIndex];
+      
+      if (fromActivity && toActivity) {
+        const fromIndex = dayActivities.findIndex(a => a.id === fromActivity.activity.id);
+        const toIndex = dayActivities.findIndex(a => a.id === toActivity.activity.id);
+        
+        if (fromIndex !== -1 && toIndex !== -1) {
+          reorderActivities(currentDay.id, fromIndex, toIndex);
+        }
+      }
+    }
+    setDraggingIndex(null);
+    setDragOverIndex(null);
+  };
+
+  // Generate trip card image
+  const generateTripCardImage = async () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Card dimensions
+    const width = 800;
+    const padding = 40;
+    let yPos = padding;
+
+    // Calculate total height based on content
+    let totalHeight = padding * 2 + 120; // Header + padding
+    
+    dayPlans.forEach((day) => {
+      totalHeight += 60; // Day header
+      timeSlots.forEach((slot) => {
+        const slotItems = getAttractionsForSlot(day.id, slot.id);
+        if (slotItems.length > 0) {
+          totalHeight += 40; // Slot header
+          slotItems.forEach(() => {
+            totalHeight += 70; // Activity item
+          });
+        }
+      });
+      totalHeight += 30; // Day spacing
+    });
+    
+    totalHeight += 100; // Summary section
+
+    canvas.width = width;
+    canvas.height = totalHeight;
+
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
+    gradient.addColorStop(0, '#1a1a2e');
+    gradient.addColorStop(1, '#16213e');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, totalHeight);
+
+    // Header
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 36px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('🇯🇵 Japan Planner', width / 2, yPos + 40);
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '18px Arial, sans-serif';
+    ctx.fillText(`Itinerario del ${new Date().toLocaleDateString('it-IT')}`, width / 2, yPos + 70);
+    
+    yPos += 120;
+
+    // Days
+    dayPlans.forEach((day, dayIndex) => {
+      // Day header
+      ctx.fillStyle = '#3b82f6';
+      ctx.font = 'bold 24px Arial, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(`Giorno ${dayIndex + 1}`, padding, yPos);
+      yPos += 40;
+
+      // Time slots
+      timeSlots.forEach((slot) => {
+        const slotItems = getAttractionsForSlot(day.id, slot.id);
+        if (slotItems.length > 0) {
+          // Slot header
+          ctx.fillStyle = '#fbbf24';
+          ctx.font = 'bold 16px Arial, sans-serif';
+          ctx.fillText(`${slot.icon} ${slot.label} (${slot.timeRange})`, padding + 10, yPos);
+          yPos += 30;
+
+          slotItems.forEach((item, itemIndex) => {
+            // Transport info (if not first item)
+            if (itemIndex > 0) {
+              const prevItem = slotItems[itemIndex - 1];
+              const distance = getAttractionDistance(prevItem.attraction!.id, item.attraction!.id);
+              const travelTime = getEstimatedTravelTime(prevItem.attraction!.id, item.attraction!.id);
+              
+              ctx.fillStyle = '#10b981';
+              ctx.font = '12px Arial, sans-serif';
+              const transportMode = distance < 1.5 ? '🚶 A piedi' : '🚇 Metro';
+              ctx.fillText(`  ↳ ${transportMode} · ${distance.toFixed(1)}km · ~${travelTime}min`, padding + 20, yPos);
+              yPos += 20;
+            }
+
+            // Activity box
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.roundRect(padding + 10, yPos - 15, width - padding * 2 - 20, 55, 8);
+            ctx.fill();
+
+            // Activity name
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 14px Arial, sans-serif';
+            ctx.fillText(`📍 ${item.attraction!.name}`, padding + 25, yPos + 10);
+
+            // Activity details
+            ctx.fillStyle = '#9ca3af';
+            ctx.font = '12px Arial, sans-serif';
+            const price = item.attraction!.price > 0 ? `¥${item.attraction!.price.toLocaleString()}` : 'Gratis';
+            ctx.fillText(`   ⏱ ${item.activity.startTime} - ${item.activity.endTime} · ${item.attraction!.duration} · ${price}`, padding + 25, yPos + 30);
+
+            yPos += 60;
+          });
+        }
+      });
+
+      yPos += 20;
+    });
+
+    // Summary section
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.2)';
+    ctx.roundRect(padding, yPos, width - padding * 2, 80, 12);
+    ctx.fill();
+
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 18px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('💰 Riepilogo', width / 2, yPos + 30);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '14px Arial, sans-serif';
+    const totalCost = dayPlans.reduce((sum, day) => sum + calculateDayCost(day.id), 0);
+    const totalActivities = dayPlans.reduce((sum, day) => sum + day.activities.length, 0);
+    ctx.fillText(`Totale attrazioni: ${totalActivities} · Costo totale: ¥${totalCost.toLocaleString()} · Budget: ¥${totalBudget.toLocaleString()}`, width / 2, yPos + 55);
+
+    // Footer
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '12px Arial, sans-serif';
+    ctx.fillText('Generato con Japan Planner', width / 2, totalHeight - 15);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `japan-trip-card-${new Date().toISOString().split('T')[0]}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
+  // Share trip function with Unicode support
+  const handleShareTrip = () => {
     const tripData = {
-      attractions: selectedAttractions,
-      hotels: selectedHotels,
-      days: dayPlans,
-      budget: { total: totalBudget, spent: getTotalSpent() },
-      savedAt: new Date().toISOString(),
+      attractions: selectedAttractions.map(a => a.id),
+      hotels: selectedHotels.map(h => h.id),
+      days: dayPlans.map(day => ({
+        activities: day.activities.map(a => ({
+          attractionId: a.attractionId,
+          startTime: a.startTime,
+          endTime: a.endTime,
+        })),
+      })),
     };
     
-    const blob = new Blob([JSON.stringify(tripData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `japan-trip-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Encode with Unicode support
+    const jsonString = JSON.stringify(tripData);
+    const encoded = btoa(encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (match, p1) => 
+      String.fromCharCode(parseInt(p1, 16))
+    ));
+    const url = `${window.location.origin}${window.location.pathname}?trip=${encoded}`;
+    
+    setShareUrl(url);
+    setShowShareDialog(true);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareUrl);
   };
 
   return (
@@ -179,7 +484,7 @@ export function DayBuilderSection() {
             <h2 className="text-2xl font-bold text-white mb-1">Costruisci il tuo giorno</h2>
             <p className="text-white/60">Organizza il tuo itinerario con distanze e linee metro</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             {dayPlans.length > 0 && (
               <select
                 value={selectedDay || dayPlans[0]?.id}
@@ -198,15 +503,55 @@ export function DayBuilderSection() {
               Nuovo Giorno
             </Button>
             <Button 
-              onClick={handleSaveTrip} 
+              onClick={generateTripCardImage} 
               variant="outline" 
               className="border-white/30 text-white hover:bg-white/10"
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
-              Salva
+              <Camera className="w-4 h-4 mr-2" />
+              Scarica Card
+            </Button>
+            <Button 
+              onClick={handleShareTrip} 
+              variant="outline" 
+              className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10"
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              Condividi
             </Button>
           </div>
         </div>
+
+        {/* Share Dialog */}
+        <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
+          <DialogContent className="bg-gray-900 border-white/10 max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="text-white flex items-center gap-2">
+                <Share2 className="w-5 h-5 text-blue-400" />
+                Condividi il tuo viaggio
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              <p className="text-white/70 text-sm">
+                Copia questo link per condividere il tuo itinerario con gli amici:
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={shareUrl}
+                  readOnly
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white text-sm"
+                />
+                <Button onClick={copyToClipboard} className="bg-blue-500 hover:bg-blue-600">
+                  <Download className="w-4 h-4 mr-2" />
+                  Copia
+                </Button>
+              </div>
+              <p className="text-white/50 text-xs">
+                Il link contiene tutti i dati del tuo viaggio codificati in base64.
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Selected Hotels */}
         {selectedHotels.length > 0 && (
@@ -253,6 +598,60 @@ export function DayBuilderSection() {
                     <div>
                       <p className="text-white/60 text-sm">Attività totali</p>
                       <p className="text-white text-xl font-bold">{currentDay.activities.length}</p>
+                    </div>
+                    <div>
+                      <p className="text-white/60 text-sm">Budget totale</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-white text-xl font-bold">¥{totalBudget.toLocaleString()}</span>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant="ghost" size="sm" className="text-white/50 hover:text-white">
+                              <Plus className="w-4 h-4" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="bg-gray-900 border-white/10">
+                            <DialogHeader>
+                              <DialogTitle className="text-white">Modifica Budget</DialogTitle>
+                            </DialogHeader>
+                            <div className="space-y-4 mt-4">
+                              <div>
+                                <label className="text-white/70 text-sm mb-2 block">Budget totale (¥)</label>
+                                <input
+                                  type="number"
+                                  value={totalBudget}
+                                  onChange={(e) => setTotalBudget(Number(e.target.value))}
+                                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
+                                  min="0"
+                                  step="10000"
+                                />
+                              </div>
+                              <div className="flex gap-2">
+                                <Button 
+                                  onClick={() => setTotalBudget(200000)} 
+                                  variant="outline" 
+                                  className="flex-1 border-white/30 text-white"
+                                >
+                                  ¥200k
+                                </Button>
+                                <Button 
+                                  onClick={() => setTotalBudget(300000)} 
+                                  variant="outline" 
+                                  className="flex-1 border-white/30 text-white"
+                                >
+                                  ¥300k
+                                </Button>
+                                <Button 
+                                  onClick={() => setTotalBudget(500000)} 
+                                  variant="outline" 
+                                  className="flex-1 border-white/30 text-white"
+                                >
+                                  ¥500k
+                                </Button>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   </div>
                 </Card>
@@ -333,57 +732,19 @@ export function DayBuilderSection() {
                           </div>
                         ) : (
                           <div className="space-y-2">
-                            {slotAttractions.map((item, index) => {
-                              const prevItem = index > 0 ? slotAttractions[index - 1] : null;
-                              
-                              return (
-                                <div key={item.activity.id}>
-                                  {/* Transport Info */}
-                                  {prevItem && (
-                                    <TransportInfo 
-                                      fromId={prevItem.attraction!.id} 
-                                      toId={item.attraction!.id}
-                                      city={item.attraction!.city}
-                                    />
-                                  )}
-                                  
-                                  {/* Activity Card */}
-                                  <div className="flex items-center gap-3 p-3 bg-white/10 rounded-lg">
-                                    {item.attraction!.image && (
-                                      <img 
-                                        src={item.attraction!.image} 
-                                        alt={item.attraction!.name}
-                                        className="w-12 h-12 object-cover rounded-lg flex-shrink-0"
-                                      />
-                                    )}
-                                    <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                      <MapPin className="w-5 h-5 text-red-400" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <p className="text-white font-medium truncate">{item.attraction!.name}</p>
-                                      <div className="flex items-center gap-3 text-sm text-white/50">
-                                        <span className="flex items-center gap-1">
-                                          <Clock className="w-3 h-3" />
-                                          {item.activity.startTime} - {item.activity.endTime}
-                                        </span>
-                                        <span>{item.attraction!.duration}</span>
-                                        {item.attraction!.price > 0 && (
-                                          <span>¥{item.attraction!.price}</span>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <Button
-                                      variant="ghost"
-                                      size="icon"
-                                      className="text-white/50 hover:text-red-400"
-                                      onClick={() => removeFromDay(item.activity.id, currentDay!.id)}
-                                    >
-                                      <Trash2 className="w-4 h-4" />
-                                    </Button>
-                                  </div>
-                                </div>
-                              );
-                            })}
+                            {slotAttractions.map((item, index) => (
+                              <DraggableActivity
+                                key={item.activity.id}
+                                item={item}
+                                index={index}
+                                slotAttractions={slotAttractions}
+                                currentDay={currentDay!}
+                                onDragStart={handleDragStart}
+                                onDragOver={handleDragOver}
+                                onDragEnd={() => handleDragEnd(slot.id)}
+                                draggingIndex={draggingIndex}
+                              />
+                            ))}
                             
                             {/* Add more button */}
                             <Dialog>

@@ -23,6 +23,24 @@
   background: #1a1a1a !important;
 }
 
+/* Fix Leaflet zoom controls z-index */
+.leaflet-control-container .leaflet-control-zoom {
+  z-index: 400 !important;
+}
+
+.leaflet-control-container .leaflet-control-attribution {
+  z-index: 400 !important;
+}
+
+.leaflet-control-container .leaflet-control-scale {
+  z-index: 400 !important;
+}
+
+/* Ensure map controls are below our custom UI */
+.leaflet-control-container {
+  z-index: 400 !important;
+}
+
 .leaflet-popup-content-wrapper {
   background: rgba(0, 0, 0, 0.9) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
